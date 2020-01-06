@@ -41,12 +41,12 @@ OR salary = (SELECT MIN(salary) FROM salaries);
 
 -- 9) Wyświetl imię i nazwisko pracownika oraz imię i nazwisko managera jego działu
 
--- SELECT e.emp_no, e.first_name, e.last_name, de.dept_no, (SELECT e.first_name FROM employees WHERE e.emp_no = dm.emp_no)
-SELECT e.emp_no, e.first_name, e.last_name, de.dept_no, dm.emp_no AS Manager_No
+SELECT e.emp_no, e.first_name, e.last_name, de.dept_no, dm.emp_no AS Manager_No, m.first_name AS Manager_First_Name, m.last_name AS Manager_Last_Name
 FROM employees e
 JOIN dept_emp de ON e.emp_no = de.emp_no
 JOIN dept_manager dm ON de.dept_no = dm.dept_no
-WHERE dm.to_date = '9999-01-01'
+JOIN employees m ON dm.emp_no = m.emp_no
+WHERE dm.to_date = '9999-01-01' -- <--this is current manger
 ORDER BY e.emp_no;
 
 -- 10) Wyświetl wszystkie stanowiska w firmie. Usuń powtórzenia.
